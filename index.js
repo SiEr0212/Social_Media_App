@@ -16,7 +16,7 @@ const typeDefs = gql`
     username: String!
   }
   type Query {
-    getPosts [Post]
+    getPosts: [Post]
   }
 `;
 //find() is gonna fetch all the posts
@@ -40,7 +40,7 @@ const server = new ApolloServer({
 });
 
 mongoose
-  .connect(MONGODB, { useNewUrlParser: true })
+  .connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
       console.log('MongoDB Connected');
     return server.listen({ port: 5000 });
