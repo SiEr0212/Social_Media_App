@@ -11,15 +11,26 @@ const typeDefs = gql`
   
   type Post{
     id:ID! 
+    body: String!
+    createdAt: String!
+    username: String!
   }
   type Query {
     getPosts [Post]
   }
 `;
-
+//find() is gonna fetch all the posts
 const resolvers = {
   Query: {
-    sayHi: () => "Hello World!!!!!",
+   async getPosts(){
+     try{
+       const posts = await Post.find();
+       return posts;
+     } catch(err){
+       throw new Error(err);
+     }
+
+   }
   },
 };
 
