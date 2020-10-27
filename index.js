@@ -2,11 +2,18 @@ const { ApolloServer } = require("apollo-server");
 const gql = require("graphql-tag");
 const mongoose = require("mongoose");
 
+const Post = require('./models/Post');
 const { MONGODB } = require("./config.js");
 
+//! on line 11 after ID means it is required//
+
 const typeDefs = gql`
+  
+  type Post{
+    id:ID! 
+  }
   type Query {
-    sayHi: String!
+    getPosts [Post]
   }
 `;
 
