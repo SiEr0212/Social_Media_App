@@ -11,19 +11,21 @@ module.exports = {
     ///args is registerInput from typeDefs, type Mutation, register()
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } }
+      { 
+          registerInput: { username, email, password, confirmPassword } 
+        },
     ) {
       // TODO: valodate user data
       //TODO: Male sur user doesnt already exist
-      const user = User.findOne({ username });
+      const user = await User.findOne({ username });
       if (user) {
         throw new UserInputError("Username is taken", {
           errors: {
             username: "This username is taken",
-          },
-        });
+          }
+        })
       }
-      //TODO: hash password and create an auth token
+      // hash password and create an auth token
       password = await bcrypt.hash(password, 12);
 
       const newUser = new User({
