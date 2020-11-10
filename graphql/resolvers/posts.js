@@ -14,12 +14,13 @@ module.exports = {
       try {
         const post = await Post.findById(postId);
         if (post) {
+          console.log(post);
           return post;
         } else {
           throw new Error("Post not found");
         }
       } catch (err) {
-        throw new Error(err);
+        throw new Error("Post not found");
       }
     },
   },
