@@ -1,4 +1,5 @@
 const { AuthenticationError, UserInputError } = require("apollo-server");
+const { argsToArgsConfig } = require("graphql/type/definition");
 
 const Post = require("../../models/Post");
 const checkAuth = require("../../util/check-auth");
@@ -33,6 +34,11 @@ module.exports = {
       const user = checkAuth(context);
       console.log(user);
       //the following block of code is executed when the user os authentificated, now he can create posts
+
+      if (args.body.trim() === "") {
+        throw new Error("Post body must not be empty");
+      }
+
       const newPost = new Post({
         body,
         user: user.id,
