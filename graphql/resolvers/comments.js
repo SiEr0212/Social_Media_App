@@ -1,7 +1,7 @@
 const { UserInputError } = require("apollo-server");
 
-const Post = require("../../models/Post");
 const checkAuth = require("../../util/check-auth");
+const Post = require("../../models/Post");
 
 module.exports = {
   Mutation: {
@@ -17,14 +17,16 @@ module.exports = {
       }
       const post = await Post.findById(postId);
 
-      if(post){
-          //new post added at to the top of the array with unshift()
-          post.comments.unshift({
-              body,
-              username,
-              createdAt: new Date().toISOString()
-          })
-      }
+      if (post) {
+        //new post added at to the top of the array with unshift()
+        post.comments.unshift({
+          body,
+          username,
+          createdAt: new Date().toISOString(),
+        });
+        await post.save();
+        return post;
+      } else throw new UserInputError("Post not found");
     },
   },
 };
