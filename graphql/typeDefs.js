@@ -1,7 +1,7 @@
 const {gql} = require('apollo-server');
 
 //! on line 11 after ID means it is required//
-
+//Int is Number in graphql
 module.exports = gql`
   
   type Post{
@@ -11,6 +11,8 @@ module.exports = gql`
     username: String!
     comments: [Comment]!
     likes: [Like]!
+    likeCount: Int! 
+    commentCount: Int!
   }
   type Comment{
     id: ID!
@@ -49,6 +51,9 @@ module.exports = gql`
       createComment(postId: String!, body: String!): Post!
       deleteComment(postId: ID!, commentId: ID!): Post!
       likePost(postId: ID!): Post!
+  }
+  type Subscription {
+    newPost: Post!
   }
 `;
 
