@@ -5,6 +5,8 @@ const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 const { MONGODB } = require('./config');
 
+const cors = require('cors');
+
 
 const pubsub = new PubSub();
 

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "node index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index"
   },
@@ -13,9 +14,13 @@
   "dependencies": {
     "apollo-server": "^2.19.0",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "graphql": "^15.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.12"
+    "mongoose": "^5.10.12",
+    "react-router-dom": "^5.2.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
