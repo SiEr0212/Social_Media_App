@@ -18,7 +18,7 @@ function Register() {
   };
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
+    update(_, result) {
       console.log(result);
     },
     variables: values
@@ -35,8 +35,8 @@ function Register() {
         <h1>Register</h1>
         <Form.Input
           label="Username"
-          placeholder="Username.."
           name="username" // thats the name that identifies it to use it later
+          placeholder="Username.."
           type="text"
           value={values.username}
           onChange={onChange}
@@ -65,10 +65,10 @@ function Register() {
           value={values.confirmPassword}
           onChange={onChange}
         />
-      </Form>
       <Button className='register-btn' type="submit" primary>
         Register
       </Button>
+      </Form>
     </div>
   );
 }
