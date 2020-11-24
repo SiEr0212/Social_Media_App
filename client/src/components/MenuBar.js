@@ -8,28 +8,18 @@ function MenuBar() {
   const { user, logout } = useContext(AuthContext);
   const pathname = window.location.pathname;
   // /about
-  const path = pathname === '/' ? 'home' : pathname.substr(1);//starts after the slash / at index 0
+  const path = pathname === "/" ? "home" : pathname.substr(1); //starts after the slash / at index 0
   const [activeItem, setActiveItem] = useState(path);
-
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   const menuBar = user ? (
     <Menu pointing secondary size="massive" color="teal">
-      <Menu.Item
-        name={user.username}
-        active
-        as={Link}
-        to="/"
-      />
+      <Menu.Item name={user.username} active as={Link} to="/" />
       <Menu.Menu position="right">
-        <Menu.Item
-          name="logout"
-          onClick={logout}
-        />
+        <Menu.Item name="logout" onClick={logout} />
       </Menu.Menu>
     </Menu>
-
   ) : (
     <Menu pointing secondary size="massive" color="teal">
       <Menu.Item
@@ -56,7 +46,7 @@ function MenuBar() {
         />
       </Menu.Menu>
     </Menu>
-  )
+  );
 
   return menuBar;
 }
