@@ -35,7 +35,7 @@ module.exports = {
       console.log(user);
       //the following block of code is executed when the user os authentificated, now he can create posts
 
-      if (args.body.trim() === "") {
+      if (body.trim() === "") {
         throw new Error("Post body must not be empty");
       }
 
