@@ -1,10 +1,13 @@
 import { GraphQLDeprecatedDirective, SingleFieldSubscriptionsRule } from "graphql";
-import React from "react";
+import React,  {useContext} from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_POSTS_QUERY } from "../util/graphql";
 import { Card, Grid, Loader } from "semantic-ui-react";
 import moment from 'moment';
+import LikeButton from '../components/LikeButton';
+
+import { AuthContext } from '../context/auth';
 
 function SinglePost(props) {
   const postId = props.match.params.postid;
@@ -52,7 +55,13 @@ function SinglePost(props) {
                    <Card.Content>
                        <Card.Header>{username}</Card.Header>
                        <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
+                       <Card.Description>{body}</Card.Description>
                    </Card.Content>
+                   <hr/>
+                   <Card.Content extra>
+                       <LikeButton></LikeButton>
+                   </Card.Content>
+
                </Card>
                </Grid.Column>
           </Grid.Row>
@@ -61,7 +70,7 @@ function SinglePost(props) {
     }
 
   }
-}
+
 
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {
