@@ -26,9 +26,9 @@ function SinglePost(props) {
   let postMarkup;
   if (!getPost) {
     postMarkup = (
-        <div className="ui active inverted dimmer">
-    <div className="ui  big text loader">Loading post...</div>
-  </div>
+      <div className="ui active inverted dimmer">
+        <div className="ui  big text loader">Loading post...</div>
+      </div>
     );
   } else {
     const {
@@ -79,6 +79,19 @@ function SinglePost(props) {
                 )}
               </Card.Content>
             </Card>
+            {comments.map((comment) => (
+              //the fluid property takes all the width
+              <Card fluid key={comment.id}>
+                <Card.Content>
+                  {user && user.username === comment.username && (
+                    <DeleteButton postId={id} commentId={comment.id} />
+                  )}
+                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                  <Card.Description>{comment.body}</Card.Description>
+                </Card.Content>
+              </Card>
+            ))}
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -108,5 +121,4 @@ const FETCH_POST_QUERY = gql`
     }
   }
 `;
-
 export default SinglePost;
