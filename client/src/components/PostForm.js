@@ -8,7 +8,7 @@ import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
-    body: ''
+    body: "",
   });
 
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
