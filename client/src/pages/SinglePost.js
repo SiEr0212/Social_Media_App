@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_POSTS_QUERY } from "../util/graphql";
-import { Card, Grid, Loader } from "semantic-ui-react";
+import { Card, Grid, Icon, Label, Image, Button  } from "semantic-ui-react";
 import moment from "moment";
 import LikeButton from "../components/LikeButton";
 
