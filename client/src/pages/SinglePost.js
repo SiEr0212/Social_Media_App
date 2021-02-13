@@ -1,34 +1,34 @@
 import React, { useContext } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { FETCH_POSTS_QUERY } from "../util/graphql";
-import { Card, Grid, Icon, Label, Image, Button  } from "semantic-ui-react";
 import moment from "moment";
-import LikeButton from "../components/LikeButton";
+import { Button, Card, Grid, Image, Icon, Label } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
+import LikeButton from "../components/LikeButton";
+import DeleteButton from "../components/DeleteButton";
 
 function SinglePost(props) {
-  const postId = props.match.params.postid;
+  const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   console.log(postId);
-  const {
-    data: { getPost },
-  } = useQuery(FETCH_POSTS_QUERY, {
+
+  const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
     },
   });
 
+  function deletePostCallback() {
+    props.history.push("/");
+  }
+
   let postMarkup;
   if (!getPost) {
     postMarkup = (
-      <div class="ui segment">
-        <div class="ui active inverted dimmer">
-          <div class="ui text loader">Loading post...</div>
-        </div>
-        <p></p>
-      </div>
+        <div className="ui active inverted dimmer">
+    <div className="ui  big text loader">Loading post...</div>
+  </div>
     );
   } else {
     const {
@@ -36,6 +36,7 @@ function SinglePost(props) {
       body,
       createdAt,
       username,
+      comments,
       likes,
       likeCount,
       commentCount,
@@ -60,20 +61,22 @@ function SinglePost(props) {
               </Card.Content>
               <hr />
               <Card.Content extra>
-                <LikeButton user={user} post={{ id, likeCount, likes }}/>
-                <Button 
-                as="div"
-                labelPosition="right"
-                onClick={() => console.log('Comment on post')}
+                <LikeButton user={user} post={{ id, likeCount, likes }} />
+                <Button
+                  as="div"
+                  labelPosition="right"
+                  onClick={() => console.log("Comment on post")}
                 >
-                    <Button basic color='blue'>
-                        <Icon name="comments"/>
-                    </Button>
-                    <Label basic color="blue" pointing="left">
-                        {commentCount}
-                    </Label>
+                  <Button basic color="blue">
+                    <Icon name="comments" />
+                  </Button>
+                  <Label basic color="blue" pointing="left">
+                    {commentCount}
+                  </Label>
                 </Button>
-
+                {user && user.username === username && (
+                  <DeleteButton postId={id} callback={deletePostCallback} />
+                )}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -81,11 +84,12 @@ function SinglePost(props) {
       </Grid>
     );
   }
+  return postMarkup;
 }
 
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {
-    getPosts(postId: $postId) {
+    getPost(postId: $postId) {
       id
       body
       createdAt

@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { Button, Confirm, Icon } from "semantic-ui-react";
-
 //confirm has a boolean, if it is open or not
+import { FETCH_POST_QUERY } from "../util/graphql";
 
-function DeleteButton({ postId }) {
+
+function DeleteButton({ postId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-    update() {
+    update(proxy) {
       setConfirmOpen(false);
-      //TODO: remove post from cache
+      
+      if (callback) callback();
     },
     variables: {
       postId,
