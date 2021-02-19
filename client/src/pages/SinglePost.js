@@ -99,6 +99,7 @@ function SinglePost(props) {
             </Card>
             {user && (
               <Card fluid>
+              <Card.Content>
                 <p>Post a comment</p>
                 <Form>
                   <div className="ui action input fluid">
@@ -109,23 +110,7 @@ function SinglePost(props) {
                       value={comment}
                       onChange={(event) => setComment(event.target.value)}
                     />
-                  </div>
-                </Form>
-              </Card>
-            )}
-            {comments.map((comment) => (
-              //the fluid property takes all the width
-              //everything in a card must be wrapped in card.content for margin etc.
-              <Card fluid key={comment.id}>
-               <Card.Content> 
-               <Card.Content>
-               {user && user.username === comment.username && (
-                 <DeleteButton postId={id} commentId={comment.id} />
-               )}
-               <Card.Header>{comment.username}</Card.Header>
-               <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
-               <Card.Description>{comment.body}</Card.Description>
-               <button
+                    <button
                  type="submit"
                  className="button ui teal"
                  disabled={comment.trim() === ""}
@@ -133,8 +118,23 @@ function SinglePost(props) {
                >
                  Submit
                </button>
+                  </div>
+                </Form>
+              </Card.Content>
+              </Card>
+            )}
+            {comments.map((comment) => (
+              //the fluid property takes all the width
+              //everything in a card must be wrapped in card.content for margin etc.
+              <Card fluid key={comment.id}>
+               <Card.Content>
+               {user && user.username === comment.username && (
+                 <DeleteButton postId={id} commentId={comment.id} />
+               )}
+               <Card.Header>{comment.username}</Card.Header>
+               <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+               <Card.Description>{comment.body}</Card.Description>
              </Card.Content>
-               </Card.Content>
               </Card>
             ))}
           </Grid.Column>
