@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import moment from "moment";
@@ -15,10 +15,13 @@ import {
 import { AuthContext } from "../context/auth";
 import LikeButton from "../components/LikeButton";
 import DeleteButton from "../components/DeleteButton";
+import MyPopup from "../util/MyPopup";
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
+  const commentInputRef = useRef(null);
+
   const [comment, setComment] = useState("");
 
   const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
@@ -30,6 +33,7 @@ function SinglePost(props) {
   const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
     update() {
       setComment("");
+      commentInputRef.current.blur();
     },
     variables: {
       postId,
@@ -80,18 +84,20 @@ function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => console.log("Comment on post")}
-                >
-                  <Button basic color="blue">
-                    <Icon name="comments" />
+                <MyPopup content="Comment on Post">
+                  <Button
+                    as="div"
+                    labelPosition="right"
+                    onClick={() => console.log("Comment on post")}
+                  >
+                    <Button basic color="blue">
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
                   </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                </MyPopup>
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
@@ -99,42 +105,44 @@ function SinglePost(props) {
             </Card>
             {user && (
               <Card fluid>
-              <Card.Content>
-                <p>Post a comment</p>
-                <Form>
-                  <div className="ui action input fluid">
-                    <input
-                      type="text"
-                      placeholder="Comment.."
-                      name="comment"
-                      value={comment}
-                      onChange={(event) => setComment(event.target.value)}
-                    />
-                    <button
-                 type="submit"
-                 className="button ui teal"
-                 disabled={comment.trim() === ""}
-                 onClick={submitComment}
-               >
-                 Submit
-               </button>
-                  </div>
-                </Form>
-              </Card.Content>
+                <Card.Content>
+                  <p>Post a comment</p>
+                  <Form>
+                    <div className="ui action input fluid">
+                      <input
+                        type="text"
+                        placeholder="Comment.."
+                        name="comment"
+                        value={comment}
+                        onChange={(event) => setComment(event.target.value)}
+                        //giving thr Form a reference so it turns blurry after commenting
+                        ref={commentInputRef}
+                      />
+                      <button
+                        type="submit"
+                        className="button ui teal"
+                        disabled={comment.trim() === ""}
+                        onClick={submitComment}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </Form>
+                </Card.Content>
               </Card>
             )}
             {comments.map((comment) => (
               //the fluid property takes all the width
               //everything in a card must be wrapped in card.content for margin etc.
               <Card fluid key={comment.id}>
-               <Card.Content>
-               {user && user.username === comment.username && (
-                 <DeleteButton postId={id} commentId={comment.id} />
-               )}
-               <Card.Header>{comment.username}</Card.Header>
-               <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
-               <Card.Description>{comment.body}</Card.Description>
-             </Card.Content>
+                <Card.Content>
+                  {user && user.username === comment.username && (
+                    <DeleteButton postId={id} commentId={comment.id} />
+                  )}
+                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                  <Card.Description>{comment.body}</Card.Description>
+                </Card.Content>
               </Card>
             ))}
           </Grid.Column>
