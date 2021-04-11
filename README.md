@@ -1,5 +1,4 @@
 # Social_Media_App
-:couple::+1::heart:
 <br>
 Hi,
 <br>
