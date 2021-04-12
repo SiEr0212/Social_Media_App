@@ -6,7 +6,7 @@ import { AuthContext } from '../context/auth';
 import PostCard from '../components/PostCard';
 import PostForm from '../components/PostForm';
 import { FETCH_POSTS_QUERY } from '../util/graphql';
-import Gallery from './Gallery';
+import Upload from './Upload';
 
 function Home() {
   const { user } = useContext(AuthContext);
