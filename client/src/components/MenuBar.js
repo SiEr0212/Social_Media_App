@@ -47,6 +47,7 @@ function MenuBar() {
           as={Link}
           to="/login"
         />
+        <Menu.Item name="Gallery" active as={Link} to="/upload" />
       </Menu.Menu>
     </Menu>
   );

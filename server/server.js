@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const {cloudinary} = require('./utils/cloudinary');
 var cors = require('cors');
-
 /* app.get('/api/images', async (req, res) => {
   const { resources } = await cloudinary.search
       .expression('folder:dev_setups')
@@ -27,7 +26,7 @@ app.post('/api/upload', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 3001;
+const port = 3001;
 app.listen(port, () => {
   console.log('listening on 3001');
 });
