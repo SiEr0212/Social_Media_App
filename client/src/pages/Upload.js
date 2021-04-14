@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Alert from '../components/Alert';
+import axios from 'axios';
 
 export default function Upload() {
     const [fileInputState, setFileInputState] = useState('');
@@ -13,6 +14,15 @@ export default function Upload() {
         setSelectedFile(file);
         setFileInputState(e.target.value);
     };
+
+    //new tutorial
+const [selectFile, setselectFile] = useState(null)
+
+
+
+
+
+    //end new tutorial
 
     const previewFile = (file) => {
         const reader = new FileReader();
@@ -51,8 +61,22 @@ export default function Upload() {
             setErrMsg('Something went wrong!');
         }
     };
+
+    const fileSelectedHandler = (e) => {
+        console.log(e.target.files[0])
+        setselectFile(e.target.file[0])
+
+    }
+
+    const fileUploadHandler = () => {
+        axios.post('cloudinary://137344693198534:T64FoeyRYYz00Kce1uNpwmMy1lg@simonscloud2021');
+    }
+   
     return (
         <div>
+            <h1>Other tutorial</h1>
+            <input type="file" onChange={fileSelectedHandler}/>
+            <button onClick={fileUploadHandler}>Upload</button>
             <h1 className="title">Upload an Image</h1>
             <Alert msg={errMsg} type="danger" />
             <Alert msg={successMsg} type="success" />
