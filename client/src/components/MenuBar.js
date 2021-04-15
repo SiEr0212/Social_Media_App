@@ -17,7 +17,7 @@ function MenuBar() {
     <Menu pointing secondary size="massive" color="teal">
       <Menu.Item name={user.username} active as={Link} to="/" />
       <Menu.Menu  size="small" color="blue">
-      <Menu.Item name="Gallery" active as={Link} to="/upload" />
+      <Menu.Item name="Gallery" active as={Link} to="/gallery" />
       </Menu.Menu>
       <Menu.Menu position="right">
         <Menu.Item name="logout" onClick={logout} />
@@ -47,7 +47,6 @@ function MenuBar() {
           as={Link}
           to="/login"
         />
-        <Menu.Item name="Gallery" active as={Link} to="/upload" />
       </Menu.Menu>
     </Menu>
   );
