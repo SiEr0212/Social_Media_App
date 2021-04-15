@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { app } from "../base";
 import { AuthContext } from "../context/auth";
 
-const db = app.firestore()
+const db = app.firestore();
 
 export default function Gallery() {
   const { user } = useContext(AuthContext);
@@ -20,24 +20,25 @@ export default function Gallery() {
   const onSubmit = (e) => {
     e.preventDefault(); // so when you click submit it doesen't triggger navigation
     const username = e.target.username.value;
-    if(!username){
-        return
+    if (!username) {
+      return;
     }
     db.collection("users").doc(username).set({
       name: username,
-      avatar: fileUrl
-    })
+      avatar: fileUrl,
+    });
   };
- useEffect(() => {
-   const fetchUsers = async () => {
-    const usersCollection = await db.collection('users').get()
-    setUsers(usersCollection.docs.map(doc => {
-    return doc.data()
-    }))
-  }
-   fetchUsers()
-}, []) 
-
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const usersCollection = await db.collection("users").get();
+      setUsers(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -47,7 +48,14 @@ export default function Gallery() {
         <button>Submit</button>
       </form>
       <ul>
-        <li>---</li>
+        {users.map((useR) => {
+          return (
+            <li key={useR.name}>
+              <img width="100" height="100" src={useR.avatar} alt={useR.name} />
+              <p>{useR.name}</p>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
