@@ -8,12 +8,14 @@ import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 import DeleteButton from "./DeleteButton";
 import MyPopup from "../util/MyPopup"
+import Images from "../components/Images"
 
 function PostCard({
   post: { body, createdAt, id, username, likeCount, commentCount, likes}, 
 }) {
   const { user } = useContext(AuthContext);
-
+  
+console.log({username})
   return (
     <Card fluid>
       <Card.Content>
@@ -32,6 +34,7 @@ function PostCard({
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
+      <Images/>
       <Card.Content extra>
         <LikeButton user={user} post={{ id, likes, likeCount }} />
         <MyPopup

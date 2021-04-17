@@ -1,16 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from 'react'
+import Gallery from '../pages/Gallery';
 import { app } from "../base";
-import { AuthContext } from "../context/auth";
-import { Button, Form } from 'semantic-ui-react';
 
 
 const db = app.firestore();
 
-export default function Gallery() {
-  const { user } = useContext(AuthContext);
+export default function Images() {
   const [fileUrl, setFileUrl] = React.useState(null);
   const [users, setUsers] = React.useState([]); // users from firebase
- 
 
   const onFileChange = async (e) => {
     const file = e.target.files[0];
@@ -45,25 +42,18 @@ export default function Gallery() {
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
-      <Form.Field>
-        <Form.Input type="file" onChange={onFileChange} />
-         <Form.Input type="text" name="username" placeholder="NAME" />
-        <Button  color="teal">Submit</Button>
-      </Form.Field>
-      </Form>
-      <ul>
         {users.map((useR) => {
+        console.log(useR.avatar);
+        
           return (
-            <>
-           {/*<li key={useR.name}>*/} 
-              <img width="100" height="100" src={useR.avatar} alt={useR.name} />
-              {/*<p>{useR.name}</p>*/}
-            {/*</li>*/}
-          </>
-            );
+           
+            
+              <img width="300" height="300" src={useR.avatar} />
+              
+           
+          );
         })}
-      </ul>
+     
     </>
   );
 }

@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { useForm } from '../util/hooks';
 import { FETCH_POSTS_QUERY } from '../util/graphql';
+import Gallery from '../pages/Gallery';
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -37,8 +38,12 @@ function PostForm() {
 
   return (
     <>
+
       <Form onSubmit={onSubmit}>
         <h2>Create a post:</h2>
+        <h3>Upload an image:</h3>
+    <Gallery/>
+    <h3>Write something:</h3>
         <Form.Field>
           <Form.Input
             placeholder="Hi World!"
