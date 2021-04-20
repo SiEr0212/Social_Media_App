@@ -17,7 +17,6 @@ import LikeButton from "../components/LikeButton";
 import DeleteButton from "../components/DeleteButton";
 import MyPopup from "../util/MyPopup";
 
-
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
