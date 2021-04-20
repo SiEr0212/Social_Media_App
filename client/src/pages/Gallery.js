@@ -6,7 +6,6 @@ import { Button, Form } from 'semantic-ui-react';
 
 const db = app.firestore();
 
-
 export default function Gallery() {
   const { user } = useContext(AuthContext);
   const [fileUrl, setFileUrl] = React.useState(null);
