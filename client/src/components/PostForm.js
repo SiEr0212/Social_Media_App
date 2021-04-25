@@ -41,9 +41,9 @@ function PostForm() {
 
       <Form onSubmit={onSubmit}>
         <h2>Create a post:</h2>
-        <h3>Upload an image:</h3>
-    <Gallery/>
-    <h3>Write something:</h3>
+        {/*<h3>Upload an image:</h3>*/}
+    {/*<Gallery/>*/}
+    {/*<h3>Write something:</h3>*/}
         <Form.Field>
           <Form.Input
             placeholder="Hi World!"
@@ -52,7 +52,7 @@ function PostForm() {
             value={values.body}
             error={error ? true : false}
           />
-          <Button type="submit" color="teal">
+          <Button type="submit" color="light pink">
             Submit
           </Button>
         </Form.Field>

@@ -7,8 +7,9 @@ import moment from "moment";
 import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 import DeleteButton from "./DeleteButton";
-import MyPopup from "../util/MyPopup"
-import Images from "../components/Images"
+import MyPopup from "../util/MyPopup";
+import Images from "../components/Images";
+import App from "../App.css"
 
 function PostCard({
   post: { body, createdAt, id, username, likeCount, commentCount, likes}, 
@@ -17,8 +18,8 @@ function PostCard({
   
 console.log({username})
   return (
-    <Card fluid>
-      <Card.Content>
+    <Card fluid style={{color: "red"}} >
+      <Card.Content >
         <MyPopup
         content={username}
         >
@@ -34,7 +35,7 @@ console.log({username})
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
-      <Images/>
+     {/*<Images/>*/} 
       <Card.Content extra>
         <LikeButton user={user} post={{ id, likes, likeCount }} />
         <MyPopup
