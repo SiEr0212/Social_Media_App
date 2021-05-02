@@ -1,5 +1,5 @@
 # Social_Media_App
-Deployed version:
+Deployed version: https://upbeat-lamarr-d6fdbf.netlify.app/
 <br>
 Hi,
 <br>
